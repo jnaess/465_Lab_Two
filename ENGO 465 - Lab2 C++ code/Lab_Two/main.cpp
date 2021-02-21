@@ -1,5 +1,5 @@
 // Summary:
-//    Skeleton program to open and read a RINEX ephemeris (navigation) file.  Students in 
+//    Skeleton program to open and read a RINEX ephemeris (navigation) file.  Students in
 //    ENGO 465 will use this to develop code to compute satellite positions at specified times.
 //
 // History:
@@ -12,10 +12,10 @@
 //    University of Calgary
 //
 // Disclaimer:
-//    This source code is not freeware nor shareware and is only provided under 
-//    an agreement between authorized users/licensees and the University of 
-//    Calgary (Position, Location And Navigation (PLAN) Group, Geomatics 
-//    Engineering, Schulich School of Engineering) and may only be used under 
+//    This source code is not freeware nor shareware and is only provided under
+//    an agreement between authorized users/licensees and the University of
+//    Calgary (Position, Location And Navigation (PLAN) Group, Geomatics
+//    Engineering, Schulich School of Engineering) and may only be used under
 //    the terms and conditions set forth therein.
 
 #include <iostream>
@@ -30,15 +30,32 @@ using namespace NGSrinex;
 
 int main( int argc, char* argv[] )
 {
+
+    double toe; //time of ephemeris
+    double sqrt_A;  //square root of semi-major axis
+    double M_0; //mean anomaly at reference time
+    double w; //argument of perigee
+    double i_0; //inclination angle at reference time
+    double i_dot; //rate of inclination angle
+    double r; //eccentricity
+    double n_delta; //mean motion difference from computed value
+    double L_0; //longitude of ascending node of orbit plane at weekly epoch
+    double L_dot; //rate of ascension
+    double Crs; //sine harmonic correction terms of orbit radius
+    double Crc; //cosine harmonic correction terms of orbit radius
+    double Cis; //sine harmonic correction terms of the angle of inclination
+    double Cic; //cosine harmonic correction terms of the angle of inclination
+    double Cuc; //cosine harmonic correction terms of the argument latitude
+    double Cus; //sine harmonic correction terms of the argument of latitude
+
    // input file names
-   string rinexFilename;
+   string rinexFilename = "brdc0070.21n";
 
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    // START: Get ephemeris data
 
 
    // prompt for RINEX file name
-   cout << "Please enter the name of the RINEX ephemeris (navigation) file: ";
    getline( cin, rinexFilename );
 
 
@@ -57,7 +74,7 @@ int main( int argc, char* argv[] )
 
    // current GPS ephemeris data from RINEX file
    NGSrinex::PRNBlock  currentRinexEph;
-        
+
 
    // read the ephemeris
    try
@@ -72,36 +89,36 @@ int main( int argc, char* argv[] )
 
          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          // NOTE: This while loop reads ONE set of the ephemeris parameters for ONE satellite and
-         //       stores it in the variable named 'currentRinexEph'.  In other words, this loop 
-         //       will have to be executed several times in order to read all sets of ephemeris 
-         //       parameters in the file.  It is your decision as to how you handle these 
-         //       (e.g., store them all, only store specific ones, do all computations for the 
+         //       stores it in the variable named 'currentRinexEph'.  In other words, this loop
+         //       will have to be executed several times in order to read all sets of ephemeris
+         //       parameters in the file.  It is your decision as to how you handle these
+         //       (e.g., store them all, only store specific ones, do all computations for the
          //       current parameters and then discard them, etc.), but ultimately, you will need
          //       the parameters to compute the satellite's position.
          //
          //
          //       When you are ready to compute the satellite positions (either in this loop, or
-         //       elsewhere in your code), you can access the specific ephemeris parameters using 
+         //       elsewhere in your code), you can access the specific ephemeris parameters using
          //       the following member functions:
          //
-         //       currentRinexEph.getBigOmega();      // longitude of ascending node at reference time [rad]
-         //       currentRinexEph.getBigOmegaDot();   // rate of longitude of ascending node [rad/s]
-         //       currentRinexEph.getCic();           // harmonic correction term for inclination (1 of 2) [rad]
-         //       currentRinexEph.getCis();           // harmonic correction term for inclination (2 of 2) [rad]
-         //       currentRinexEph.getCrc();           // harmonic correction term for radius (1 of 2) [m]
-         //       currentRinexEph.getCrs();           // harmonic correction term for radius (2 of 2) [m]
-         //       currentRinexEph.getCuc();           // harmonic correction term for argument of perigee (1 of 2) [rad]
-         //       currentRinexEph.getCus();           // harmonic correction term for argument of perigee (2 of 2) [rad]
-         //       currentRinexEph.getDeltan();        // correction to mean motion [rad/s]
-         //       currentRinexEph.getEccen();         // eccentricity [unitless]
-         //       currentRinexEph.getIdot();          // inclination rate [rad/s]
-         //       currentRinexEph.getIo();            // inclincation at reference time [rad]
-         //       currentRinexEph.getLilOmega();      // argument of perigee [rad]
-         //       currentRinexEph.getMo();            // mean anomaly at reference time [rad]
-         //       currentRinexEph.getSqrtA();         // square root of semi-major axis of orbit [sqrt-m]
-         //       currentRinexEph.getToe();           // reference time, i.e., 'time of ephemeris' [s]
+         L_0 =        currentRinexEph.getBigOmega();      // longitude of ascending node at reference time [rad]
+         L_dot =        currentRinexEph.getBigOmegaDot();   // rate of longitude of ascending node [rad/s]
+         Cic =        currentRinexEph.getCic();           // harmonic correction term for inclination (1 of 2) [rad]
+         Cis =        currentRinexEph.getCis();           // harmonic correction term for inclination (2 of 2) [rad]
+         Crc =        currentRinexEph.getCrc();           // harmonic correction term for radius (1 of 2) [m]
+         Crs =        currentRinexEph.getCrs();           // harmonic correction term for radius (2 of 2) [m]
+         Cuc =        currentRinexEph.getCuc();           // harmonic correction term for argument of perigee (1 of 2) [rad]
+         Cus =        currentRinexEph.getCus();           // harmonic correction term for argument of perigee (2 of 2) [rad]
+         n_delta =        currentRinexEph.getDeltan();        // correction to mean motion [rad/s]
+         r =        currentRinexEph.getEccen();         // eccentricity [unitless]
+         i_dot =        currentRinexEph.getIdot();          // inclination rate [rad/s]
+         i_0 =        currentRinexEph.getIo();            // inclincation at reference time [rad]
+         w =       currentRinexEph.getLilOmega();      // argument of perigee [rad]
+         M_0 =      currentRinexEph.getMo();            // mean anomaly at reference time [rad]
+         sqrt_A =        currentRinexEph.getSqrtA();         // square root of semi-major axis of orbit [sqrt-m]
+         toe =       currentRinexEph.getToe();           // reference time, i.e., 'time of ephemeris' [s]
          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   
+
 
          // TO BE COMPLETED (here or elsewhere in the code):
          //  - With reference to the lab handout, compute satellite coordinates using the appropriate
@@ -115,7 +132,7 @@ int main( int argc, char* argv[] )
    {
       cout << " RinexReadingException is: " << endl << readingExcep.getMessage() << endl;
    }
-   
+
 
    // END: Read the ephemeris data
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

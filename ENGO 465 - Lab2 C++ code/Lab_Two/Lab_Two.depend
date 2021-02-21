@@ -1,0 +1,80 @@
+# depslib dependency file v1.0
+1613943920 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\datetime.cpp
+	"datetime.h"
+	<math.h>
+	<iostream>
+	<iomanip>
+
+1613943920 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\datetime.h
+	<iostream>
+
+1613943920 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\nrinexutils.cpp
+	"NRinexUtils.h"
+
+1613943920 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\nrinexutils.h
+	<string>
+	<iostream>
+	"rinex.h"
+
+1613943920 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\rinex.h
+	<fstream>
+	<iostream>
+	<sstream>
+	<string>
+	<list>
+	"datetime.h"
+
+1613943920 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\rinex.cpp
+	"rinex.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<string>
+	<limits>
+	<algorithm>
+	<cstring>
+	<cstdlib>
+	<cmath>
+	<cctype>
+	"datetime.h"
+
+1613948535 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\epoch.cpp
+	"Epoch.h"
+
+1613948535 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\epoch.h
+	"Measurement.h"
+	"rinex.h"
+	"NRinexUtils.h"
+	<vector>
+	<cmath>
+	<Eigen/Dense>
+	<iomanip>
+
+1613946671 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\measurement.h
+	<cmath>
+	<Eigen/Dense>
+	<iomanip>
+	<iostream>
+	<fstream>
+	<sstream>
+
+1613948542 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\main.cpp
+	<iostream>
+	<fstream>
+	"rinex.h"
+	"NRinexUtils.h"
+
+1613948681 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.cpp
+	"data.h"
+	<sstream>
+
+1613948697 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.h
+	"rinex.h"
+	"NRinexUtils.h"
+	"Epoch.h"
+	<vector>
+	<cmath>
+	<Eigen/Dense>
+	<iomanip>
+
