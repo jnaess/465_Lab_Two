@@ -34,4 +34,30 @@ class data {
 
     */
     data();
+
+    /*
+    Definition:
+        Adds an epoch to the epoch list
+    Input:
+
+    Output:
+
+    */
+    void add_epoch(
+        double Toe,
+        double Sqrt_A,
+        double m_0,
+        double W,
+        double I_0,
+        double I_dot,
+        double R,
+        double N_delta,
+        double l_0,
+        double l_dot,
+        double crs,
+        double crc,
+        double cis,
+        double cic,
+        double cuc,
+        double cus);
 };

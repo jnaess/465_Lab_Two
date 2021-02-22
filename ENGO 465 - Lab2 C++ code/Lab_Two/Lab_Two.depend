@@ -59,17 +59,20 @@
 	<fstream>
 	<sstream>
 
-1613948542 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\main.cpp
+1613953881 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\main.cpp
 	<iostream>
 	<fstream>
+	<sstream>
 	"rinex.h"
 	"NRinexUtils.h"
+	"Epoch.h"
+	"data.h"
 
-1613948681 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.cpp
+1613950904 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.cpp
 	"data.h"
 	<sstream>
 
-1613948697 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.h
+1613950681 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.h
 	"rinex.h"
 	"NRinexUtils.h"
 	"Epoch.h"

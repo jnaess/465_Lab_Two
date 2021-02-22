@@ -32,7 +32,19 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../../Ephemeris Files of Jan 07th, 2021/brdc0070.21n" />
+		<Unit filename="Epoch.cpp" />
+		<Unit filename="Epoch.h" />
+		<Unit filename="Lab_Two.layout" />
+		<Unit filename="NRinexUtils.cpp" />
+		<Unit filename="NRinexUtils.h" />
+		<Unit filename="data.cpp" />
+		<Unit filename="data.h" />
+		<Unit filename="datetime.cpp" />
+		<Unit filename="datetime.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="rinex.cpp" />
+		<Unit filename="rinex.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

@@ -16,6 +16,25 @@ using namespace NRinexUtils;
 using namespace Eigen;
 
 class Epoch {
+    double PI = 3.1415926535898;
+    double u = 3.986005E14; //WGS 84 value of the earth's gravitational constant for GPS user
+    double Le = 7.2921151467E-5; //WGS 84 value of earth's rotation rate
+    double A; //semi-major axis
+    double n_0; // computed mean motion
+    double tk; //time from ephemeris epoch
+    double n; //corrected mean motion
+    double Mk; //Mean anomaly [0,2PI]
+    double Ek; //kepler's equation for eccentric anomaly
+    double vk; //true anomaly [atan2] [0,2pi]
+    double Dk; //argument of latitude
+    MatrixXd SHP; //second harmonic pertubations
+    double uk; //corrected argument of latitude
+    double rk; //corrected radius
+    double ik; // positions in orbital plane
+    MatrixXd POP; //Positions in orbital plane
+    double Uk; //Corrected longitude of ascending node
+    MatrixXd EFC; //earth fixed coordinates
+
     double toe; //time of ephemeris
     double sqrt_A;  //square root of semi-major axis
     double M_0; //mean anomaly at reference time
@@ -85,4 +104,34 @@ class Epoch {
         double cic,
         double cuc,
         double cus);
+
+    /*
+    Definition:
+        Computes all neccesary values in order to find the satelites position
+    Input:
+
+    Output:
+
+    */
+    void computePosition();
+
+    /*
+    Definition:
+        Compute the relative time using the time correction
+    Input:
+
+    Output:
+
+    */
+    void computeTime();
+
+    /*
+    Definition:
+        Makes sure that the range of the value is [0,2PI]
+    Input:
+        Double
+    Output:
+        Double within [0,2PI]
+    */
+    void correctRange();
 };

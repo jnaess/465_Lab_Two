@@ -36,3 +36,30 @@ Epoch::Epoch(double Toe,
     double Cuc = cuc;
     double Cus = cus;
 }
+
+void Epoch::computePosition(){
+    // relative time
+    //[incomplete]
+    computeTime();
+
+
+    A = sqrt_A^2; //Semi-major axis
+    n_0 = sqrt(u/(A^3)); // computed mean motion
+    n = n_0 + n_delta; //corrected mean motion
+    Mk = correctRange(M_0 + n*tk); //Mean anomaly [0,2PI]
+    Ek; //kepler's equation for eccentric anomaly
+}
+
+void Epoch::computeTime(){
+    tk = t - toe;
+}
+
+double Epoch::correctRange(double x){
+    while (x >= 2.0*PI || x < 0.0){
+        if (x >= 2.0*PI)
+            x -= 2.0*PI;
+        if (x < 0.0)
+            x += 2.0*PI;
+    }
+    return x;
+}

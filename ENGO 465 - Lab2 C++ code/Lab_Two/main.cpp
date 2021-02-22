@@ -20,44 +20,43 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include "rinex.h"
 #include "NRinexUtils.h"
+#include "Epoch.h"
+#include "data.h"
 
 using namespace std;
 using namespace NGSrinex;
+using namespace Eigen;
 
 
-int main( int argc, char* argv[] )
+int main()
 {
-
-    double toe; //time of ephemeris
-    double sqrt_A;  //square root of semi-major axis
-    double M_0; //mean anomaly at reference time
-    double w; //argument of perigee
-    double i_0; //inclination angle at reference time
-    double i_dot; //rate of inclination angle
-    double r; //eccentricity
-    double n_delta; //mean motion difference from computed value
-    double L_0; //longitude of ascending node of orbit plane at weekly epoch
-    double L_dot; //rate of ascension
-    double Crs; //sine harmonic correction terms of orbit radius
-    double Crc; //cosine harmonic correction terms of orbit radius
-    double Cis; //sine harmonic correction terms of the angle of inclination
-    double Cic; //cosine harmonic correction terms of the angle of inclination
-    double Cuc; //cosine harmonic correction terms of the argument latitude
-    double Cus; //sine harmonic correction terms of the argument of latitude
+    data Data = data();
+        double toe; //time of ephemeris
+        double sqrt_A;  //square root of semi-major axis
+        double M_0; //mean anomaly at reference time
+        double w; //argument of perigee
+        double i_0; //inclination angle at reference time
+        double i_dot; //rate of inclination angle
+        double r; //eccentricity
+        double n_delta; //mean motion difference from computed value
+        double L_0; //longitude of ascending node of orbit plane at weekly epoch
+        double L_dot; //rate of ascension
+        double Crs; //sine harmonic correction terms of orbit radius
+        double Crc; //cosine harmonic correction terms of orbit radius
+        double Cis; //sine harmonic correction terms of the angle of inclination
+        double Cic; //cosine harmonic correction terms of the angle of inclination
+        double Cuc; //cosine harmonic correction terms of the argument latitude
+        double Cus; //sine harmonic correction terms of the argument of latitude
 
    // input file names
    string rinexFilename = "brdc0070.21n";
 
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    // START: Get ephemeris data
-
-
-   // prompt for RINEX file name
-   getline( cin, rinexFilename );
-
 
    // open the input RINEX file
    RinexNavFile rinexInput;
@@ -66,7 +65,6 @@ int main( int argc, char* argv[] )
       cout << "NRinexUtils::OpenRinexNavigationFileForInput() - Could not open RINEX file." << endl;
       return 0;
    }
-
 
    // END: Get ephemeris data
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,8 +75,10 @@ int main( int argc, char* argv[] )
 
 
    // read the ephemeris
+   cout << "here d" << endl;
    try
    {
+        cout << "Reading file" << endl;
       // for each set of ephemeris parameters in the RINEX file...
       while( rinexInput.readPRNBlock( currentRinexEph ) != 0 )
       {
@@ -86,7 +86,7 @@ int main( int argc, char* argv[] )
 		   if( currentRinexEph.getSvHealth() != 0 )
             continue;
 
-
+        if( currentRinexEph.getSatellitePRN() == 12){
          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          // NOTE: This while loop reads ONE set of the ephemeris parameters for ONE satellite and
          //       stores it in the variable named 'currentRinexEph'.  In other words, this loop
@@ -118,8 +118,8 @@ int main( int argc, char* argv[] )
          sqrt_A =        currentRinexEph.getSqrtA();         // square root of semi-major axis of orbit [sqrt-m]
          toe =       currentRinexEph.getToe();           // reference time, i.e., 'time of ephemeris' [s]
          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
+        Data.add_epoch(toe,sqrt_A,M_0,w,i_0,i_dot,r,n_delta,L_0,L_dot,Crs,Crc,Cis,Cic,Cuc,Cus);
+        }
          // TO BE COMPLETED (here or elsewhere in the code):
          //  - With reference to the lab handout, compute satellite coordinates using the appropriate
          //    ephemeris record at the appropriate times
