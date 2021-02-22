@@ -17,6 +17,7 @@ using namespace Eigen;
 
 class Epoch {
     double PI = 3.1415926535898;
+    double t; //raltive time
     double u = 3.986005E14; //WGS 84 value of the earth's gravitational constant for GPS user
     double Le = 7.2921151467E-5; //WGS 84 value of earth's rotation rate
     double A; //semi-major axis
@@ -27,13 +28,13 @@ class Epoch {
     double Ek; //kepler's equation for eccentric anomaly
     double vk; //true anomaly [atan2] [0,2pi]
     double Dk; //argument of latitude
-    MatrixXd SHP; //second harmonic pertubations
+    MatrixXd SHP = MatrixXd(3,1); //second harmonic pertubations [uk, rk, ik]^T
     double uk; //corrected argument of latitude
     double rk; //corrected radius
     double ik; // positions in orbital plane
-    MatrixXd POP; //Positions in orbital plane
-    double Uk; //Corrected longitude of ascending node
-    MatrixXd EFC; //earth fixed coordinates
+    MatrixXd POP = MatrixXd(2,1); //Positions in orbital plane [xk', yk']^T
+    double Lk; //Corrected longitude of ascending node
+    MatrixXd EFC = MatrixXd(3,1); //earth fixed coordinates [xk, yk, zk]^T
 
     double toe; //time of ephemeris
     double sqrt_A;  //square root of semi-major axis
@@ -133,5 +134,36 @@ class Epoch {
     Output:
         Double within [0,2PI]
     */
-    void correctRange();
+    double correctRange(double x);
+
+    /*
+    Definition:
+        Initialized eccentric anomaly Ek
+    Input:
+        uses Mk
+    Output:
+        none
+    */
+    void eccentricAnomaly();
+
+    /*
+    Definition:
+        Computes corrections to Keplerian orbit
+        Initializes SHP (Second Harmonis Pertubations)
+    Input:
+        Mk
+    Output:
+        none
+    */
+    void secondHarmonicPertubations();
+
+    /*
+    Definition:
+        Prints the computes and input values
+    Input:
+        none
+    Output:
+        none
+    */
+    void printValues();
 };

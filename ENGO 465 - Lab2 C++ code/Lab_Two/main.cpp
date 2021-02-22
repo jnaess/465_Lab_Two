@@ -21,6 +21,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <Eigen/Dense>
 
 #include "rinex.h"
 #include "NRinexUtils.h"
@@ -34,6 +35,28 @@ using namespace Eigen;
 
 int main()
 {
+    double toe = 345600.0; //time of ephemeris
+        double sqrt_A = 5153.57253456;  //square root of semi-major axis
+        double M_0 = -2.12119123046; //mean anomaly at reference time
+        double w = 1.1686277003; //argument of perigee
+        double i_0 = 0.975712564448; //inclination angle at reference time
+        double i_dot = 5.53594488004e-11; //rate of inclination angle
+        double r = 0.00817955180537; //eccentricity
+        double n_delta = 4.61769234542e-09; //mean motion difference from computed value
+        double L_0 = -2.96572093029; //longitude of ascending node of orbit plane at weekly epoch
+        double L_dot = -8.1674830656e-09; //rate of ascension
+        double Crs = 35.78125; //sine harmonic correction terms of orbit radius
+        double Crc = 300.09375; //cosine harmonic correction terms of orbit radius
+        double Cis = 1.86264514923e-09; //sine harmonic correction terms of the angle of inclination
+        double Cic = 9.685754776e-08; //cosine harmonic correction terms of the angle of inclination
+        double Cuc = 1.89244747162e-06; //cosine harmonic correction terms of the argument latitude
+        double Cus = 4.51505184174e-06;//sine harmonic correction terms of the argument of latitude
+
+    cout << "Making Epoch" << endl;
+    Epoch test = Epoch(toe,sqrt_A,M_0,w,i_0,i_dot,r,n_delta,L_0,L_dot,Crs,Crc,Cis,Cic,Cuc,Cus);
+    cout << "Printing" << endl;
+    test.printValues();
+    /*
     data Data = data();
         double toe; //time of ephemeris
         double sqrt_A;  //square root of semi-major axis
@@ -138,5 +161,6 @@ int main()
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    // end of program
+   */
    return 0;
 }
