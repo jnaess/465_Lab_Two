@@ -39,10 +39,10 @@
 	<cctype>
 	"datetime.h"
 
-1613961432 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\epoch.cpp
+1614120309 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\epoch.cpp
 	"Epoch.h"
 
-1613960270 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\epoch.h
+1614120078 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\epoch.h
 	"Measurement.h"
 	"rinex.h"
 	"NRinexUtils.h"
@@ -59,7 +59,7 @@
 	<fstream>
 	<sstream>
 
-1613961899 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\main.cpp
+1614120453 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\main.cpp
 	<iostream>
 	<fstream>
 	<sstream>
@@ -69,11 +69,11 @@
 	"Epoch.h"
 	"data.h"
 
-1613955642 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.cpp
+1614120268 source:c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.cpp
 	"data.h"
 	<sstream>
 
-1613955642 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.h
+1614120058 c:\users\jan erik naess\winter2021labs\465_lab_two\engo 465 - lab2 c++ code\lab_two\data.h
 	"rinex.h"
 	"NRinexUtils.h"
 	"Epoch.h"

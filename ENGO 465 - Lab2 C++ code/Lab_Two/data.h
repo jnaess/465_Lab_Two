@@ -21,6 +21,12 @@ class data {
 
     vector<Epoch> Epochs;
 
+    //generates a value for every 15 minutes based off of the nearest epoch value
+    vector<Epoch> oneDayNearest;
+
+    //Generates a value for every 15 minutes based off of the first epoch value
+    vector<Epoch> oneDayFirst;
+
     double currEpoch;
 
     MatrixXd truepos;
@@ -44,6 +50,7 @@ class data {
 
     */
     void add_epoch(
+                   double T,
         double Toe,
         double Sqrt_A,
         double m_0,
@@ -60,4 +67,25 @@ class data {
         double cic,
         double cuc,
         double cus);
+
+    /*
+    Definition:
+        Find the nearest epoch value
+    Input:
+        relative time
+    Output:
+        reference of the nearest epoch
+    */
+    Epoch& nearest(double time);
+
+    /*
+    Definition:
+        defines alll 96 epichs based off of the first one
+    Input:
+        none
+    Output:
+        oneDayNearest is constructed
+    */
+    void generateOneDayFirst();
+
 };

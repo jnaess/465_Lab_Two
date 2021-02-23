@@ -35,7 +35,7 @@ using namespace Eigen;
 
 int main()
 {
-    double toe = 345600.0; //time of ephemeris
+    /*double toe = 345600.0; //time of ephemeris
         double sqrt_A = 5153.57253456;  //square root of semi-major axis
         double M_0 = -2.12119123046; //mean anomaly at reference time
         double w = 1.1686277003; //argument of perigee
@@ -53,10 +53,10 @@ int main()
         double Cus = 4.51505184174e-06;//sine harmonic correction terms of the argument of latitude
 
     cout << "Making Epoch" << endl;
-    Epoch test = Epoch(toe,sqrt_A,M_0,w,i_0,i_dot,r,n_delta,L_0,L_dot,Crs,Crc,Cis,Cic,Cuc,Cus);
+    Epoch test = Epoch(toe, toe,sqrt_A,M_0,w,i_0,i_dot,r,n_delta,L_0,L_dot,Crs,Crc,Cis,Cic,Cuc,Cus);
     cout << "Printing" << endl;
-    test.printValues();
-    /*
+    test.printValues();*/
+
     data Data = data();
         double toe; //time of ephemeris
         double sqrt_A;  //square root of semi-major axis
@@ -141,7 +141,7 @@ int main()
          sqrt_A =        currentRinexEph.getSqrtA();         // square root of semi-major axis of orbit [sqrt-m]
          toe =       currentRinexEph.getToe();           // reference time, i.e., 'time of ephemeris' [s]
          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        Data.add_epoch(toe,sqrt_A,M_0,w,i_0,i_dot,r,n_delta,L_0,L_dot,Crs,Crc,Cis,Cic,Cuc,Cus);
+        Data.add_epoch(toe, toe,sqrt_A,M_0,w,i_0,i_dot,r,n_delta,L_0,L_dot,Crs,Crc,Cis,Cic,Cuc,Cus);
         }
          // TO BE COMPLETED (here or elsewhere in the code):
          //  - With reference to the lab handout, compute satellite coordinates using the appropriate
@@ -156,11 +156,11 @@ int main()
       cout << " RinexReadingException is: " << endl << readingExcep.getMessage() << endl;
    }
 
-
+    Data.generateOneDayFirst();
    // END: Read the ephemeris data
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    // end of program
-   */
+
    return 0;
 }

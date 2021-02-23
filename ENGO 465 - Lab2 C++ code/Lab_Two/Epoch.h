@@ -16,6 +16,8 @@ using namespace NRinexUtils;
 using namespace Eigen;
 
 class Epoch {
+    public:
+
     double PI = 3.1415926535898;
     double t; //raltive time
     double u = 3.986005E14; //WGS 84 value of the earth's gravitational constant for GPS user
@@ -53,7 +55,7 @@ class Epoch {
     double Cuc; //cosine harmonic correction terms of the argument latitude
     double Cus; //sine harmonic correction terms of the argument of latitude
 
-	public:
+
 
     /*
     Definition:
@@ -69,6 +71,7 @@ class Epoch {
     Definition:
         Sets up the Epoch/Epheremis,
     Input:
+        double T; //time of transmission
         double toe; //time of ephemeris
         double sqrt_A;  //square root of semi-major axis
         double M_0; //mean anomaly at reference time
@@ -89,6 +92,7 @@ class Epoch {
 
     */
     Epoch(
+        double T,
         double Toe,
         double Sqrt_A,
         double m_0,
@@ -166,4 +170,6 @@ class Epoch {
         none
     */
     void printValues();
+
+
 };

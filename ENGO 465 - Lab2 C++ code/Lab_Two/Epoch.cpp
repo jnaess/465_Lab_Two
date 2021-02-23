@@ -3,7 +3,8 @@
 Epoch::Epoch(){
 }
 
-Epoch::Epoch(double Toe,
+Epoch::Epoch(double T,
+             double Toe,
         double Sqrt_A,
         double m_0,
         double W,
@@ -19,6 +20,7 @@ Epoch::Epoch(double Toe,
         double cic,
         double cuc,
         double cus){
+    t = T;
      toe = Toe;
      sqrt_A = Sqrt_A;
      M_0 = m_0;
@@ -55,19 +57,19 @@ void Epoch::computePosition(){
     rk = A*(1.0-r*cos(Ek))+ SHP(1,0); //corrected radius
     ik = i_0 + i_dot*tk + SHP(2,0); // positions in orbital plane
 
-    Lk = (L_0-w*toe) + (L_dot-w)*tk; //Corrected longitude of ascending node
+    Lk = (L_0-Le*toe) + (L_dot-Le)*tk; //Corrected longitude of ascending node
     Lk = fmod(Lk,2.0*PI);
 
     POP(0,0) = rk*cos(uk); //Positions in orbital plane [xk', yk']^T
     POP(1,0) = rk*sin(uk);
 
     EFC(0,0) = POP(0,0)*cos(Lk) - POP(1,0)*sin(Lk)*cos(ik); //earth fixed coordinates [xk, yk, zk]^T
-    EFC(1,0) = POP(0,0)*sin(Lk) - POP(1,0)*cos(Lk)*cos(ik);
+    EFC(1,0) = POP(0,0)*sin(Lk) + POP(1,0)*cos(Lk)*cos(ik);
     EFC(2,0) = POP(1,0)*sin(ik);
 }
 
 void Epoch::computeTime(){
-    tk = toe - toe;
+    tk = t - toe;
 }
 
 double Epoch::correctRange(double x){
