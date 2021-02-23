@@ -54,15 +54,23 @@ Epoch& data::nearest(double time){
             double large = pow((Epochs[i].toe - time),2);
             double small = pow((Epochs[i-1].toe - time),2);
 
+            cout << "Choosing for time: " << time << endl;
+            cout << "Epochs[i].toe - time has a toe of: " << Epochs[i].toe << " and a delta^2 of: " << large << endl;
+            cout << "Epochs[i-1].toe - time has a toe of: " << Epochs[i-1].toe << " and a delta^2 of: " << small << endl;
+
             if(small < large){
+                cout << "Chose: " << small << endl << endl;
                 //small delta is smaller and therefore closer to desired time
                 return Epochs[i-1];
             }
-            else return Epochs[i];
+            else{
+                cout << "Chose: " << large << endl << endl;
+                return Epochs[i];
+            }
         }
     }
     //only one epoch in the vector and therefore automatically the closest
-    return Epochs[0];
+    return Epochs[Epochs.size()-1];
 }
 
 void data::generateOneDayFirst(){
@@ -95,6 +103,43 @@ void data::generateOneDayFirst(){
                                  Epochs[0].Cus);
         timeOfTransmission += interval;
 
-        c ++;
+        c++;
+    }
+}
+
+void data::generateOneDayNearest(){
+    double timeOfTransmission = 345600;
+    double maxTime = timeOfTransmission + 3600*24;
+    double interval = 900;
+    int c = 1;
+
+    while(timeOfTransmission < maxTime){
+
+        Epoch& e = nearest(timeOfTransmission);
+
+        cout << "Generating Epoch number " << c << " t: " << timeOfTransmission << endl;
+        cout << "With toe: " << e.toe << endl << endl;
+
+        oneDayFirst.emplace_back(
+                                 timeOfTransmission,
+                                 e.toe,
+                                 e.sqrt_A,
+                                 e.M_0,
+                                 e.w,
+                                 e.i_0,
+                                 e.i_dot,
+                                 e.r,
+                                 e.n_delta,
+                                 e.L_0,
+                                 e.L_dot,
+                                 e.Crs,
+                                 e.Crc,
+                                 e.Cis,
+                                 e.Cic,
+                                 e.Cuc,
+                                 e.Cus);
+        timeOfTransmission += interval;
+
+        c++;
     }
 }

@@ -88,4 +88,14 @@ class data {
     */
     void generateOneDayFirst();
 
+    /*
+    Definition:
+        defines alll 96 epichs based off of the nearest atthat given interval
+    Input:
+        none
+    Output:
+        oneDayNearest is constructed
+    */
+    void generateOneDayNearest();
+
 };
