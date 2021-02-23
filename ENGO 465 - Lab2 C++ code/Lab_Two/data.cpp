@@ -105,6 +105,8 @@ void data::generateOneDayFirst(){
 
         c++;
     }
+
+    outputEpochVector("brdc24hr.xyz", oneDayFirst);
 }
 
 void data::generateOneDayNearest(){
@@ -142,4 +144,17 @@ void data::generateOneDayNearest(){
 
         c++;
     }
+
+    outputEpochVector("brdcbest.xyz", oneDayNearest);
+}
+
+void data::outputEpochVector(string filename, vector<Epoch>& eps){
+    ofstream file;
+    file.open(filename);
+
+    for(int i = 0; i<eps.size(); i++){
+        file << eps[i].t << "/t" << eps[i].EFC(0,0) << "/t" << eps[i].EFC(1,0) << "/t" << eps[i].EFC(2,0) << endl;
+    }
+
+    file.close();
 }

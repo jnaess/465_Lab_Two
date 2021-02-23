@@ -156,7 +156,12 @@ int main()
       cout << " RinexReadingException is: " << endl << readingExcep.getMessage() << endl;
    }
 
+    //task 2.2
     Data.generateOneDayNearest();
+
+    //task 2.3
+    Data.generateOneDayFirst();
+
    // END: Read the ephemeris data
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

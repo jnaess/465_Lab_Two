@@ -98,4 +98,15 @@ class data {
     */
     void generateOneDayNearest();
 
+    /*
+    Definition:
+        outputs the x,y,z coordinates of the vector of epochs and their timeOfTransmission values
+    Input:
+        string filename, filename to output as
+        vector<Epoch> eps&, vector of epochs to output
+    Output:
+        none
+        format [t    x     y   z]
+    */
+    void outputEpochVector(string filename, vector<Epoch>& eps);
 };
