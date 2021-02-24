@@ -106,7 +106,7 @@ void data::generateOneDayFirst(){
         c++;
     }
 
-    outputEpochVector("brdc24hr.xyz", oneDayFirst);
+    outputEpochVector("brdc24hr.txt", oneDayFirst);
 }
 
 void data::generateOneDayNearest(){
@@ -122,7 +122,7 @@ void data::generateOneDayNearest(){
         cout << "Generating Epoch number " << c << " t: " << timeOfTransmission << endl;
         cout << "With toe: " << e.toe << endl << endl;
 
-        oneDayFirst.emplace_back(
+        oneDayNearest.emplace_back(
                                  timeOfTransmission,
                                  e.toe,
                                  e.sqrt_A,
@@ -145,7 +145,9 @@ void data::generateOneDayNearest(){
         c++;
     }
 
-    outputEpochVector("brdcbest.xyz", oneDayNearest);
+    outputEpochVector("brdcbest.txt", oneDayNearest);
+
+    return;
 }
 
 void data::outputEpochVector(string filename, vector<Epoch>& eps){
@@ -153,8 +155,11 @@ void data::outputEpochVector(string filename, vector<Epoch>& eps){
     file.open(filename);
 
     for(int i = 0; i<eps.size(); i++){
-        file << eps[i].t << "/t" << eps[i].EFC(0,0) << "/t" << eps[i].EFC(1,0) << "/t" << eps[i].EFC(2,0) << endl;
+        file << fixed << setprecision(3);
+        file << eps[i].t << "\t" << eps[i].EFC(0,0) << "\t" << eps[i].EFC(1,0) << "\t" << eps[i].EFC(2,0) << endl;
     }
 
     file.close();
+
+    return;
 }
