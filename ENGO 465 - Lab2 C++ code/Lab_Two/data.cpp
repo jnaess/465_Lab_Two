@@ -106,7 +106,7 @@ void data::generateOneDayFirst(){
         c++;
     }
 
-    outputEpochVector("brdc24hr.txt", oneDayFirst);
+    outputEpochVector("brdc24hr.xyz", oneDayFirst);
 }
 
 void data::generateOneDayNearest(){
@@ -145,7 +145,7 @@ void data::generateOneDayNearest(){
         c++;
     }
 
-    outputEpochVector("brdcbest.txt", oneDayNearest);
+    outputEpochVector("brdcbest.xyz", oneDayNearest);
 
     return;
 }
