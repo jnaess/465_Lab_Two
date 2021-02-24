@@ -113,6 +113,7 @@ if ~hold_state
    axis('equal')
    axis('off')
 end
+print(gcf, "skyplot.png", '-dpng', '-r300');
 
 % reset hold state
 if ~hold_state, set(cax,'NextPlot',next); end

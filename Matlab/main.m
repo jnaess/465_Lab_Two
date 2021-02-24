@@ -32,8 +32,8 @@ format long g;
 prn = 11;
 
 preciseFile = 'igs21394.sp3';
-brdc24File = 'output24h.txt';
-brdcbestFile = 'outputbest.txt';
+%brdc24File = 'output24h.txt';
+%brdcbestFile = 'outputbest.txt';
 
 almanacFile = 'Almanac-SatPos-PRN12.txt';
 PredFile = 'igu21394_00.sp3';
@@ -97,6 +97,10 @@ refsat=readSP3(preciseFile);   %%Read the sp3 file
            
            A = [];
            sat = 0;
+       elseif i == size(vis_sat,1)-1
+           Q = inv(transpose(A)*A);
+           Q = R*Q(1:3, 1:3)*transpose(R);
+           DOP = [DOP; vis_sat(i,3), sat, sqrt(Q(1,1)), sqrt(Q(2,2)), sqrt(Q(1,1)+Q(2,2)), sqrt(Q(3,3))]; 
        end
    end 
 %% Parse out PRN 11
@@ -105,3 +109,127 @@ PRN11=refsat(idx,:);
 %% Plots
 
 %% Statistics
+
+
+%% Task 3
+brdcbest = load("brdcbest.xyz");
+brdc24hr = load ("brdc24hr.xyz");
+
+sat12 = load(almanacFile);
+
+pred = readSP3(PredFile);
+obs = readSP3(ObsFile);
+
+%precise file = refsat
+
+%3.5 orbital position error x5
+refsat12 = [];
+pred12 = [];
+obs12 = [];
+for i = 1:size(refsat, 1)
+    if refsat(i,1) == 12
+        refsat12 = [refsat12; refsat(i,4:6)*1000];
+    end 
+end
+
+for j = 1:size(brdcbest, 1)
+    for i = 1:size(pred, 1)
+        if pred(i,1) == 12 && pred(i,3) == brdcbest(j,1)                  %TODO
+            pred12 = [pred12; pred(i, 4:6)*1000];
+        end
+    end
+    for i = 1:size(pred, 1)
+        if obs(i,1) == 12 && obs(i,3) == brdcbest(j,1)
+            obs12 = [obs12; obs(i, 4:6)*1000];
+        end 
+    end
+end
+
+err_brdcbest = [brdcbest(:,2)-refsat12(:,1), brdcbest(:,3)-refsat12(:,2), brdcbest(:,4)-refsat12(:,3)];
+err_brdc24hr = [brdc24hr(:,2)-refsat12(:,1), brdc24hr(:,3)-refsat12(:,2), brdc24hr(:,4)-refsat12(:,3)];
+err_pred = [pred12(:,1)-refsat12(:,1), pred12(:,2)-refsat12(:,2), pred12(:,3)-refsat12(:,3)];
+err_obs = [obs12(:,1)-refsat12(:,1), obs12(:,2)-refsat12(:,2), obs12(:,3)-refsat12(:,3)];
+err_almanac = [sat12(:,2)-refsat12(:,1), sat12(:,3)-refsat12(:,2), sat12(:,4)-refsat12(:,3)];
+
+%3.6 plots
+ephem = sat12(:,1);
+
+figure();
+plot(ephem(:,1), err_brdcbest(:,1), '-b');
+hold on;
+grid on;
+plot(ephem(:,1), err_brdcbest(:,2), '-g');
+plot(ephem(:,1), err_brdcbest(:,3), '-r');
+%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
+legend('x', 'y', 'z');
+title("Errors in brdcbest");
+xlabel("Ephemeries (sow)");
+ylabel("Error (m)");
+ylim([-4, 4]);
+print(gcf, "brdcbest_errors.png", '-dpng', '-r300');
+hold off;
+
+figure();
+plot(ephem(:,1), err_brdc24hr(:,1), '-b');
+hold on;
+grid on;
+plot(ephem(:,1), err_brdc24hr(:,2), '-g');
+plot(ephem(:,1), err_brdc24hr(:,3), '-r');
+%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
+legend('x', 'y', 'z');
+title("Errors in brdc24hr");
+xlabel("Ephemeries (sow)");
+ylabel("Error (m)");
+%ylim([-4, 4]);
+print(gcf, "brdc24hr_errors.png", '-dpng', '-r300');
+hold off;
+
+figure();
+plot(ephem(:,1), err_almanac(:,1), '-b');
+hold on;
+grid on;
+plot(ephem(:,1), err_almanac(:,2), '-g');
+plot(ephem(:,1), err_almanac(:,3), '-r');
+%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
+legend('x', 'y', 'z');
+title("Errors in almanac");
+xlabel("Ephemeries (sow)");
+ylabel("Error (m)");
+%ylim([-4, 4]);
+print(gcf, "almanac_errors.png", '-dpng', '-r300');
+hold off;
+
+figure();
+plot(ephem(:,1), err_obs(:,1), '-b');
+hold on;
+grid on;
+plot(ephem(:,1), err_obs(:,2), '-g');
+plot(ephem(:,1), err_obs(:,3), '-r');
+%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
+legend('x', 'y', 'z');
+title("Errors in obs");
+xlabel("Ephemeries (sow)");
+ylabel("Error (m)");
+ylim([-4, 4]);
+print(gcf, "obs_errors.png", '-dpng', '-r300');
+hold off;
+
+figure();
+plot(ephem(:,1), err_pred(:,1), '-b');
+hold on;
+grid on;
+plot(ephem(:,1), err_pred(:,2), '-g');
+plot(ephem(:,1), err_pred(:,3), '-r');
+%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
+legend('x', 'y', 'z');
+title("Errors in pred");
+xlabel("Ephemeries (sow)");
+ylabel("Error (m)");
+ylim([-4, 4]);
+print(gcf, "pred_errors.png", '-dpng', '-r300');
+hold off;
+
+
+
+
+
