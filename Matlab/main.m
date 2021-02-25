@@ -192,7 +192,6 @@ hold on;
 grid on;
 plot(ephem(:,1), err_brdcbest(:,2), '-g');
 plot(ephem(:,1), err_brdcbest(:,3), '-r');
-%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
 legend('x', 'y', 'z');
 title("Errors in Best Broadcast File");
 xlabel("Ephemeries (Seconds of Week)");
@@ -207,7 +206,6 @@ hold on;
 grid on;
 plot(ephem(:,1), err_brdc24hr(:,2), '-g');
 plot(ephem(:,1), err_brdc24hr(:,3), '-r');
-%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
 legend('x', 'y', 'z');
 title("Errors in 24hr Broadcast File");
 xlabel("Ephemeries (Seconds of Week)");
@@ -222,7 +220,6 @@ hold on;
 grid on;
 plot(ephem(:,1), err_almanac(:,2), '-g');
 plot(ephem(:,1), err_almanac(:,3), '-r');
-%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
 legend('x', 'y', 'z');
 title("Errors in Almanac File");
 xlabel("Ephemeries (Seconds of Week)");
@@ -237,7 +234,6 @@ hold on;
 grid on;
 plot(ephem(:,1), err_obs(:,2), '-g');
 plot(ephem(:,1), err_obs(:,3), '-r');
-%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
 legend('x', 'y', 'z');
 title("Errors in Observation File");
 xlabel("Ephemeries (Seconds of Week)");
@@ -252,7 +248,6 @@ hold on;
 grid on;
 plot(ephem(:,1), err_pred(:,2), '-g');
 plot(ephem(:,1), err_pred(:,3), '-r');
-%plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-k');
 legend('x', 'y', 'z');
 title("Errors in Predicted File");
 xlabel("Ephemeries (Seconds of Week)");
@@ -261,8 +256,36 @@ ylim([-1, 1]);
 print(gcf, "pred_errors.png", '-dpng', '-r300');
 hold off;
 
+figure();
+plot(ephem(:,1), sqrt(err_pred(:,1).^2+err_pred(:,2).^2+err_pred(:,2).^2), '-b');
+hold on;
+grid on;
+plot(ephem(:,1), sqrt(err_obs(:,1).^2+err_obs(:,2).^2+err_obs(:,3).^2), '-g');
+plot(ephem(:,1), sqrt(err_almanac(:,1).^2+err_almanac(:,2).^2+err_almanac(:,3).^2), '-r');
+plot(ephem(:,1), sqrt(err_brdc24hr(:,1).^2+err_brdc24hr(:,2).^2+err_brdc24hr(:,3).^2), '-m')
+plot(ephem(:,1), sqrt(err_brdcbest(:,1).^2+err_brdcbest(:,2).^2+err_brdcbest(:,3).^2), '-c')
+legend('Predicted', 'Observed', 'Almanac', '24hr Broadcast', 'Best Broadcast');
+title("Combined Error plot");
+xlabel("Ephemeries (Seconds of Week)");
+ylabel("Error (m)");
+print(gcf, "all_errors.png", '-dpng', '-r300');
+hold off;
 
+%% Stats
 
-
-
+pred_stats = [max(abs(err_pred(:,1))), mean(err_pred(:,1)), std(err_pred(:,1)), rms(err_pred(:,1));
+    max(abs(err_pred(:,2))), mean(err_pred(:,2)), std(err_pred(:,2)), rms(err_pred(:,2));
+    max(abs(err_pred(:,3))), mean(err_pred(:,3)), std(err_pred(:,3)), rms(err_pred(:,3))];
+obs_stats = [max(abs(err_obs(:,1))), mean(err_obs(:,1)), std(err_obs(:,1)), rms(err_obs(:,1));
+    max(abs(err_obs(:,2))), mean(err_obs(:,2)), std(err_obs(:,2)), rms(err_obs(:,2));
+    max(abs(err_obs(:,3))), mean(err_obs(:,3)), std(err_obs(:,3)), rms(err_obs(:,3))];
+almanac_stats = [max(abs(err_almanac(:,1))), mean(err_almanac(:,1)), std(err_almanac(:,1)), rms(err_almanac(:,1));
+    max(abs(err_almanac(:,2))), mean(err_almanac(:,2)), std(err_almanac(:,2)), rms(err_almanac(:,2));
+    max(abs(err_almanac(:,3))), mean(err_almanac(:,3)), std(err_almanac(:,3)), rms(err_almanac(:,3))];
+brdc24hr_stats = [max(abs(err_brdc24hr(:,1))), mean(err_brdc24hr(:,1)), std(err_brdc24hr(:,1)), rms(err_brdc24hr(:,1));
+    max(abs(err_brdc24hr(:,2))), mean(err_brdc24hr(:,2)), std(err_brdc24hr(:,2)), rms(err_brdc24hr(:,2));
+    max(abs(err_brdc24hr(:,3))), mean(err_brdc24hr(:,3)), std(err_brdc24hr(:,3)), rms(err_brdc24hr(:,3))];
+brdcbest_stats = [max(abs(err_brdcbest(:,1))), mean(err_brdcbest(:,1)), std(err_brdcbest(:,1)), rms(err_brdcbest(:,1));
+    max(abs(err_brdcbest(:,2))), mean(err_brdcbest(:,2)), std(err_brdcbest(:,2)), rms(err_brdcbest(:,2));
+    max(abs(err_brdcbest(:,3))), mean(err_brdcbest(:,3)), std(err_brdcbest(:,3)), rms(err_brdcbest(:,3))];
 
