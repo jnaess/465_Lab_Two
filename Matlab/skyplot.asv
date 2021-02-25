@@ -113,7 +113,7 @@ if ~hold_state
    axis('equal')
    axis('off')
 end
-title("Skyplot of Visible Satellites");
+title("
 print(gcf, "skyplot.png", '-dpng', '-r300');
 
 % reset hold state
